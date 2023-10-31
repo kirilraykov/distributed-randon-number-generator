@@ -7,6 +7,7 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 import static java.lang.Math.abs;
+import static java.util.Objects.*;
 import static java.util.Objects.requireNonNull;
 
 /**
@@ -28,6 +29,20 @@ public class InputProcessor {
 
     public static void verifyNonNullInput(Object... objects) {
         requireNonNull(objects, "Provided input should NOT be null.");
+    }
+
+    public static <K, V> void verifyNonNullMapEntries(Map<K, V> providedMap) {
+        String errorMessage = providedMap.entrySet()
+                .stream()
+                .filter(entry -> isNull(entry.getKey()) || isNull(entry.getValue()))
+                .map(entry -> isNull(entry.getKey()) ? "key" : "value")
+                .findFirst()
+                .map(type -> "Provided map should NOT contain any null " + type + ".")
+                .orElse(null);
+
+        if (errorMessage != null) {
+            throw new IllegalArgumentException(errorMessage);
+        }
     }
 
     private static void verifyNonNullElements(List<Integer> randomNumbers, List<Double> probabilities) {

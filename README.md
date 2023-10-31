@@ -20,6 +20,10 @@ of distributed numbers,
 pre-calculates the cumulative probabilities during initialization
 and then generates random number based on the distribution provided.
 
+Project also contains Demo class which has a main method for testing out the Generator.
+It can accept console input of any random numbers and probabilities
+and perform random number generation based on the distribution. 
+
 ## Usage
 ```
 // Initialize the number generator based on the numbers distribution map (allowed numbers and their probabilities)

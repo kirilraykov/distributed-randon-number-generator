@@ -95,4 +95,14 @@ class DistributionRandomNumberGeneratorTest {
     public void testNullDistribution() {
         assertThrows(NullPointerException.class, () -> new DistributionRandomNumberGenerator(null));
     }
+
+    @Test
+    public void testDistributionContainingNullValues() {
+        Map<Integer, Double> nullValuesNumbersDistribution = new HashMap<>();
+        nullValuesNumbersDistribution.put(0, 0.5);
+        nullValuesNumbersDistribution.put(1, null);
+        nullValuesNumbersDistribution.put(3, 0.5);
+
+        assertThrows(IllegalArgumentException.class, () -> new DistributionRandomNumberGenerator(nullValuesNumbersDistribution));
+    }
 }

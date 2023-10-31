@@ -4,6 +4,7 @@ import java.util.Map;
 import java.util.TreeMap;
 
 import static com.kiril.utils.InputProcessor.verifyNonNullInput;
+import static com.kiril.utils.InputProcessor.verifyNonNullMapEntries;
 
 public class DistributionRandomNumberGenerator implements RandomNumberGenerator {
 
@@ -15,6 +16,8 @@ public class DistributionRandomNumberGenerator implements RandomNumberGenerator 
      */
     public DistributionRandomNumberGenerator(Map<Integer, Double> distribution) {
         verifyNonNullInput(distribution);
+        verifyNonNullMapEntries(distribution);
+
         cumulativeDistribution = new TreeMap<>();
         double cumulativeProbability = 0.0;
 
