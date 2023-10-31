@@ -19,6 +19,7 @@ public class InputProcessor {
         verifyEqualListsSize(randomNumbers, probabilities);
         verifyNonNullElements(randomNumbers, probabilities);
         verifyProbabilitySum(probabilities);
+        verifyProbabilityValues(probabilities);
     }
 
     public static Map<Integer, Double> convertInputListsToMap(List<Integer> randomNumbers, List<Double> probabilities) {
@@ -60,6 +61,14 @@ public class InputProcessor {
         double sum = entries.stream().mapToDouble(Double::doubleValue).sum();
         if (abs(sum - 1) > 1e-9) {
             throw new IllegalArgumentException("Total sum of the probabilities should equal 1.");
+        }
+    }
+
+    private static void verifyProbabilityValues(List<Double> entries) {
+        boolean areAllEntriesInValidRange = entries.stream().allMatch(value -> value != null && value > 0 && value < 1);
+
+        if(!areAllEntriesInValidRange) {
+            throw new IllegalArgumentException("Each probability value should be between 0 and 1 (inclusive).");
         }
     }
 

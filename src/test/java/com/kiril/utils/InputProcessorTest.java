@@ -55,6 +55,21 @@ class InputProcessorTest {
     }
 
     @Test
+    void testValidateProbabilityInvalidValues(){
+        // Containing invalid value - negative number/out of range
+        probabilities = Arrays.asList(-0.01, 0.3, 0.58, 0.1, 0.03);
+        assertThrows(IllegalArgumentException.class, () -> InputProcessor.validateInputLists(allowedNumbers, probabilities));
+
+        // Containing invalid value - probability = 1
+        probabilities = Arrays.asList(1.0, 0.0, 0.0, 0.0, 0.0);
+        assertThrows(IllegalArgumentException.class, () -> InputProcessor.validateInputLists(allowedNumbers, probabilities));
+
+        // Containing invalid value - probability = 0
+        probabilities = Arrays.asList(0.0, 0.3, 0.58, 0.1, 0.02);
+        assertThrows(IllegalArgumentException.class, () -> InputProcessor.validateInputLists(allowedNumbers, probabilities));
+    }
+
+    @Test
     void testConvertInputListsToMap() {
         Map<Integer, Double> expected = Map.of(-1, 0.01, 0, 0.3, 1, 0.58, 2, 0.1, 3, 0.01);
         assertEquals(expected, InputProcessor.convertInputListsToMap(allowedNumbers, probabilities));
